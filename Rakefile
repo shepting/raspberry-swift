@@ -1,8 +1,16 @@
 
 
 LOG = 'build/swift_build.log'
-SOURCES = 'source/AnalogReader.swift source/LightSwitch.swift'
-ARGS = '-module-cache-path build -swift-version 4'
+SOURCES = 'source/DataStore.swift source/AnalogReader.swift source/LightSwitch.swift'
+# SOURCES = 'source/AnalogReader.swift source/LightSwitch.swift'
+
+ARGS = '-module-cache-path build -Onone'
+# ARGS = '-module-cache-path build'
+
+
+task :default do
+    system 'rake --tasks'
+end
 
 desc 'Build the project'
 task :build do
@@ -11,12 +19,17 @@ task :build do
     build_main
 end
 
+desc 'Clean the intermediate build files'
 task :clean do
-    system 'rm -rf Home.swift* libHome.dylib*'
+    sh 'rm -rf build/*'
 end
 
+# Functions
+
 def build_module
-    sh "swift #{ARGS} #{SOURCES} -emit-library -module-name Home -emit-module -o build/libHome.dylib"
+    sh "swiftc #{SOURCES} #{ARGS} -emit-library -module-name Home -emit-module -o build/libHome.dylib"
+    # sh "swiftc #{SOURCES} #{ARGS} -emit-library -module-name Home -emit-module"
+
 end
 
 def build_main

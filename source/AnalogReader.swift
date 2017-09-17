@@ -2,6 +2,7 @@
 import Foundation
 
 public struct AnalogReader {
+    let dataStore = DataStore()
 
     public init() {
 
@@ -9,12 +10,14 @@ public struct AnalogReader {
 
     public func beginReading() {
         for _ in 0..<3 {
-            read()
+            let temp = read()
+            dataStore.saveValue(temp)
             sleep(1)
         }
     }
 
-    func read() {
+    func read() -> Float {
         print("Reading")
+        return 72.1
     }
 }
