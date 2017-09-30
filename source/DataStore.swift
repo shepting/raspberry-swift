@@ -15,7 +15,7 @@ public class DataStore {
         if #available(OSX 10.11, *) {
             let dataLogURL = URL(fileURLWithPath: "data.plist", relativeTo:bundleURL)
             print(dataLogURL)
-            print(dataLogURL.path)wwqc  d
+            print(dataLogURL.path)
 
             let data_copy = data as NSDictionary
             print(data_copy)
