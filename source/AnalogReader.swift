@@ -9,11 +9,12 @@ public struct AnalogReader {
     }
 
     public func beginReading() {
-        for _ in 0..<3 {
+        for _ in 0..<1 {
             let temp = read()
             dataStore.saveValue(temp)
             sleep(1)
         }
+        dataStore.writeData()
     }
 
     func read() -> Float {
