@@ -17,9 +17,9 @@ public class DataStore {
             print(dataLogURL)
             print(dataLogURL.path)
 
-            let data_copy = data as NSDictionary
+            let data_copy = data //as NSDictionary
             print(data_copy)
-            data_copy.write(to: dataLogURL, atomically: true)
+            //data_copy.write(to: dataLogURL, atomically: true)
 
         }
         // print(Bundle())

@@ -16,3 +16,8 @@ desc 'Clean the intermediate build files'
 task :clean do
     SwiftBuild.clean
 end
+
+desc 'Build on Linux'
+task :linux do
+    system 'swiftc source/DataStore.swift source/AnalogReader.swift source/LightSwitch.swift source/main.swift -o main'
+end
