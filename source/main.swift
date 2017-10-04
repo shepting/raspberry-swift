@@ -1,6 +1,6 @@
 
 import Foundation
-//import Home
+import Home
 
 let swift = LightSwitch()
 print("Switch: #{swift}")
@@ -11,7 +11,7 @@ reader.beginReading()
 
 
 func main() -> Int {
-    print("Hello world.")
+    print("Hi")
 
     return 0
 }
