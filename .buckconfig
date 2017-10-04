@@ -5,4 +5,4 @@
 
 [swift]
   version = 3.1
-  compiler_flags = -DBUCK -whole-module-optimization -enable-testing -suppress-warnings
+  compiler_flags = -DBUCK -whole-module-optimization

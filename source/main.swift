@@ -11,7 +11,7 @@ reader.beginReading()
 
 
 func main() -> Int {
-    print("Hi")
+    print("Hey yo. Hi.")
 
     return 0
 }
