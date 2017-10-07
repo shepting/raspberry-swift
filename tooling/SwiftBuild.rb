@@ -1,9 +1,13 @@
 
 ARGS = '-module-cache-path build -Onone'
-SOURCES = 'source/DataStore.swift source/AnalogReader.swift source/LightSwitch.swift'
+# SOURCES = 'source/Home/DataStore.swift source/Home/AnalogReader.swift source/Home/LightSwitch.swift'
+SOURCES = 'DataStore.swift'
 
-def build_module
-    sh "swiftc #{SOURCES} #{ARGS} -emit-library -module-name Home -emit-module -o build/libHome.dylib -emit-dependencies"
+
+def build_home
+    sh "swiftc #{SOURCES} #{ARGS} -emit-library -module-name Home -emit-module -o build/libHome.dylib -emit-dependencies -v"
+    # sh "swiftc #{SOURCES} -v"
+
 end
 
 def build_main
@@ -12,18 +16,4 @@ end
 
 def self.clean
     sh 'rm -rf build/*'
-end
-
-class SwiftBuild
-    def self.build_module
-        sh "swiftc #{SOURCES} #{ARGS} -emit-library -module-name Home -emit-module -o build/libHome.dylib"
-    end
-
-    def self.build_main
-        sh "swift #{ARGS} -I build -L build -lHome source/main.swift -o build/main"
-    end
-
-    def self.clean
-        sh 'rm -rf build/*'
-    end
 end

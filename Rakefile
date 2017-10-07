@@ -8,7 +8,7 @@ end
 desc 'Build the project'
 task :build do
     puts 'Building project'
-    build_module
+    build_home
     build_main
 end
 
