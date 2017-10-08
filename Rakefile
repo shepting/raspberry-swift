@@ -19,5 +19,5 @@ end
 
 desc 'Build on Linux'
 task :linux do
-    system 'swiftc source/DataStore.swift source/AnalogReader.swift source/LightSwitch.swift source/main.swift -o main'
+    system 'swiftc source/Home/DataStore.swift source/Home/AnalogReader.swift source/Home/LightSwitch.swift source/main.swift -o main'
 end
