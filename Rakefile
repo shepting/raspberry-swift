@@ -2,7 +2,8 @@
 require_relative 'tooling/SwiftBuild.rb'
 
 def system_and_log(message)
-  puts message
+  blue_color_code = 34
+  puts "\e[#{blue_color_code}m#{message}\e[0m"
   system message
 end
 
@@ -24,8 +25,9 @@ end
 
 desc 'Build on Linux'
 task :linux do
-    system 'swiftc source/Home/DataStore.swift source/Home/AnalogReader.swift source/Home/LightSwitch.swift source/SwiftyGPIO/*.swift source/main.swift -o build/main'
-    system './build/main'
+    system_and_log 'swiftc -j4 \
+    source/SwiftyGPIO/Mailbox.swift source/SwiftyGPIO/SunXi.swift source/SwiftyGPIO/UART.swift source/SwiftyGPIO/I2C.swift  source/SwiftyGPIO/Presets.swift source/SwiftyGPIO/SwiftyGPIO.swift source/main.swift -o build/main -v'
+    system_and_log './build/main'
 end
 
 def build_all
@@ -49,10 +51,41 @@ def build_main
   # -Xlinker -add_ast_path -Xlinker build/SwiftyGPIO.swiftmodule'
 end
 
+def build_with_module
+  # First, compile the Foo.swiftmodule and libFoo.dylib that the executable depends upon.
+  system_and_log 'mkdir -p build/gpio-out'
+  system_and_log 'swiftc \
+    -Onone -c -j4 source/SwiftyGPIO/Mailbox.swift \
+    source/SwiftyGPIO/SunXi.swift source/SwiftyGPIO/UART.swift \
+    source/SwiftyGPIO/I2C.swift  source/SwiftyGPIO/Presets.swift \
+    source/SwiftyGPIO/SwiftyGPIO.swift \
+    -emit-module -emit-module-path build/gpio-out/SwiftyGPIO.swiftmodule \
+    -module-name SwiftyGPIO \
+    -emit-library -o build/gpio-out/libSwiftyGPIO.so -v'
+
+    # Then, compile the main executable.
+  system_and_log 'mkdir -p build/main-out'
+  system_and_log 'swiftc \
+    -Onone -c -j4 source/main.swift \
+    -emit-module -emit-module-path build/main-out/Main.swiftmodule \
+    -module-name Main -module-link-name Main \
+    -Ibuild/gpio-out -v\
+    -emit-library -o build/main-out/main.o'
+
+  # Link the final executable.
+  system_and_log 'clang \
+    build/main-out/main.o \
+    -o build/main-out/Main \
+    -I build \
+    -L/home/steven/workspace/raspberry-swift/build/gpio-out -lSwiftyGPIO -v'
+
+end
+
 
 
 task :i2c do
-  build_gpio
-  build_main
-  # system './build/i2cdetect'
+  build_with_module
+
+  # Execute the executable.
+  # system 'DYLD_LIBRARY_PATH=foo-out ./main-out/Main'
 end

@@ -1,6 +1,6 @@
 
-import Foundation
-import SwiftyGPIO
+// import Foundation
+// import SwiftyGPIO
 
 public func i2c_detect() {
   let i2cs = SwiftyGPIO.hardwareI2Cs(for:.RaspberryPi3)!
@@ -30,6 +30,7 @@ public func i2c() {
   let i2cs = SwiftyGPIO.hardwareI2Cs(for:.RaspberryPi3)!
   print("I2C's \(i2cs)")
   let i2c = i2cs[1]
+  i2c.setPEC(0x45, enabled: True)
 
   // print("Read.")
   // print("Read: \(i2c.readByte(0x45))")
@@ -55,12 +56,14 @@ public func i2c() {
 
 }
 
+
 i2c_detect()
 
 i2c()
 
-
 func main() -> Int {
+
+
     print("Hey yo. Hi.")
     return 0
 }
