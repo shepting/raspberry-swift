@@ -2,6 +2,12 @@
 require_relative 'tooling/SwiftBuild.rb'
 
 def system_and_log(message)
+  gray = 37
+  puts "\e[#{gray}m#{message}\e[0m"
+  system message
+end
+
+def log(message)
   blue_color_code = 34
   puts "\e[#{blue_color_code}m#{message}\e[0m"
   system message
@@ -81,6 +87,13 @@ def build_with_module
 
 end
 
+task :build_and_run do
+  log 'Building'
+  system_and_log 'swift build'
+
+  log 'Running'
+  system_and_log '.build/debug/RaspberrySwift'
+end
 
 
 task :i2c do

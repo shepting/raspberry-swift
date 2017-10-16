@@ -43,7 +43,10 @@ public func i2c() {
   // let array: [UInt8] = [0x2C, 0x06]
   // print("Writing: \(i2c.writeData(0x45, command: 0, values:array))")
   // print("Writing: \(i2c.writeWord(0x45, command: 0, value:0x062C))")
-  print("Writing: \(i2c.writeWord(0x45, command: 0, value:0x2C06))")
+  // print("Writing: \(i2c.writeWord(0x45, command: 0, value:0x2C06))")
+
+  print("Writing: \(i2c.writeByte(0x45, value:0x2C))")
+
 
 
   // sleep(0.1)
