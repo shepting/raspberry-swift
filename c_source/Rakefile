@@ -1,0 +1,25 @@
+require_relative '../tooling/common.rb'
+
+task :default do
+    system 'rake -T'
+end
+
+task :build do
+    log 'Building'
+    system_and_log 'clang blink_register.c -lbcm2835 -o blink'
+end
+
+task :run => :build do
+    log 'Running'
+    # system 'gcc -o blink blink_register.c -l bcm2835'
+    system_and_log './blink'
+end
+
+desc 'Direct addressing example'
+task :direct do
+    log 'Building'
+    system_and_log 'clang direct_addressing.c -o direct'
+
+    log 'Running'
+    system_and_log 'sudo ./direct'
+end
