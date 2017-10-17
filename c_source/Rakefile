@@ -23,3 +23,12 @@ task :direct do
     log 'Running'
     system_and_log 'sudo ./direct'
 end
+
+desc 'Swift direct memory example'
+task :swift do
+    log 'Building'
+    system_and_log 'swiftc directMemory.swift -o memory'
+
+    log 'Running'
+    system_and_log 'sudo ./memory'
+end
