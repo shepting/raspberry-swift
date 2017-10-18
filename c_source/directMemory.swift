@@ -5,14 +5,14 @@
 import Glibc
 
 func with_mmap() {
-    let file = open("/dev/mem", O_RDONLY | O_SYNC);
+    let file = open("/dev/mem", O_RDWR | O_SYNC);
     guard (file >= 0) else {
         perror("Cannot open path")
         return
     }
     defer { close(file) }
 
-    guard let rawPointer = mmap(nil, 1024 * 4, PROT_READ | PROT_WRITE, MAP_PRIVATE, file, 0x3f200000), rawPointer != UnsafeMutableRawPointer(bitPattern: -1) else {
+    guard let rawPointer = mmap(nil, 1024 * 4, PROT_READ | PROT_WRITE, MAP_SHARED, file, 0x3f200000), rawPointer != UnsafeMutableRawPointer(bitPattern: -1) else {
         perror("Cannot mmap bytes for path")
         return
     }
@@ -27,12 +27,13 @@ func with_mmap() {
     print("Clear pointer: \(clearPointer)")
 
     for i in 0...5 {
-        print("High \(i) \(setPointer)")
+        print("High \(setPointer)")
         setPointer.pointee = 0x10
-        sleep(1)
+        usleep(500000)
+        print("Counter: \(i)")
         print("Low \(clearPointer)")
         clearPointer.pointee = 0x10
-        sleep(1)
+        usleep(500000)
     }
 }
 
