@@ -33,14 +33,22 @@ int main(int argc, char** argv) {
     // Set output type
     volatile uint32_t* paddr = map;
     *paddr = 0x1000; 
+    printf("Base pointer: %p\n", paddr);
     
     // Switch from high to low as fast as possible
     volatile uint32_t* paddr1 = map + 0x1C/4;
+    printf("Set register %p.\n", paddr1);
+
     volatile uint32_t* paddr2 = map + 0x28/4;
-    for(int i =0;i < 100; i++) {
-        printf("High.\n");
-        *paddr1=0x10; // Set
-        printf("Low.\n");
-        *paddr2=0x10; // Clear
+    printf("Clear register %p.\n", paddr2);
+    uint32_t mask = 0x10;
+    for (int i = 0; i < 5; i++)
+    {
+        printf("High %p  \n", paddr1);
+        *paddr1 = mask; // Set
+        usleep(500000);
+        printf("Low %p.\n", paddr2);
+        *paddr2 = mask; // Clear
+        usleep(500000);
     }
 }
