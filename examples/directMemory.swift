@@ -28,11 +28,14 @@ func with_mmap() {
 
     for i in 0...5 {
         print("High \(setPointer)")
-        setPointer.pointee = 0x10
+        bcm2835_peri_write(setPointer, 0x10)
+        // setPointer.pointee = 0x10
         usleep(500000)
         print("Counter: \(i)")
         print("Low \(clearPointer)")
-        clearPointer.pointee = 0x10
+        bcm2835_peri_write(clearPointer, 0x10)
+
+        // clearPointer.pointee = 0x10
         usleep(500000)
     }
 }

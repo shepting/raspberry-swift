@@ -27,7 +27,7 @@ end
 desc 'Swift direct memory example'
 task :swift do
     log 'Building'
-    system_and_log 'swiftc directMemory.swift -o memory'
+    system_and_log 'swiftc directMemory.swift -o memory -Xlinker -lbcm2835 -L/usr/local/lib -v -Xlinker -v'
 
     log 'Running'
     system_and_log 'sudo ./memory'
