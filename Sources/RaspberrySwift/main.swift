@@ -1,95 +1,96 @@
 
 import Foundation
 import SwiftyGPIO
+import Home
 
-// public func i2c_detect() {
-//   let i2cs = SwiftyGPIO.hardwareI2Cs(for:.RaspberryPi3)!
-//   let i2c = i2cs[1]
+extension UInt8 {
+    func hex() -> String {
+        return String(format: "%02x", self)
+    }
+}
 
-//   print("Detecting devices on the I2C bus:\n")
-//   outer: for i in 0x0...0x7 {
-//       if i == 0 {
-//           print("    0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f")
-//       }
-//       for j in 0x0...0xf {
-//           if j == 0 {
-//               print(String(format:"%x0",i), terminator: "")
-//           }
-//           // Test within allowed range 0x3...0x77
-//           if (i==0) && (j<3) {print("   ", terminator: "");continue}
-//           if (i>=7) && (j>=7) {break outer}
+extension Int {
+    func hex() -> String {
+        return String(format: "%02x", self)
+    }
+}
+extension UInt16 {
+    func hex() -> String {
+        // 0x4e07
+        let low = self & 0xFF
+        let high = (self >> 8) & 0xFF
+        return "0x" + String(format: "%02x", high) + String(format: "%02x", low)
+        // return "0x" + String(high, radix: 16, uppercase: true) + String(low, radix: 16, uppercase: true)
+    }
+}
 
-//           print(" \(i2c.isReachable(i<<4 + j) ? " x" : " ." )", terminator: "")
-//       }
-//       print()
-//   }
-//   print("\n")
-// }
+func shortSleep() {
+    usleep(100000)
+}
 
-// public func i2c() {
-//   let i2cs = SwiftyGPIO.hardwareI2Cs(for:.RaspberryPi3)!
-//   print("I2C's \(i2cs)")
-//   let i2c = i2cs[1]
-//   i2c.setPEC(0x45, enabled: true)
-
-//   // print("Read.")
-//   // print("Read: \(i2c.readByte(0x45))")
-//   // print("Read: \(i2c.readByte(0x45))")
-//   // sleep(0.1)
-//   // print("Read: \(i2c.readByte(0x45))")
-
-//   print("Write.")
-//   // i2c.setPEC(0x45, enabled: true)
-//   // let array: [UInt8] = [0x2C, 0x06]
-//   // print("Writing: \(i2c.writeData(0x45, command: 0, values:array))")
-//   // print("Writing: \(i2c.writeWord(0x45, command: 0, value:0x062C))")
-//   // print("Writing: \(i2c.writeWord(0x45, command: 0, value:0x2C06))")
-
-//   print("Writing: \(i2c.writeByte(0x45, value:0x2C))")
+public func i2c() {
+    let i2cs = SwiftyGPIO.hardwareI2Cs(for:.RaspberryPi3)!
+    let i2c = i2cs[1]
 
 
 
-//   // sleep(0.1)
-//   // print("Writing: \(i2c.writeByte(0x45 , value:0x06))")
+    // TODO: set measurement values
+    for _ in 1...12 {    
 
-//   // Reading register 0 of the device with address 0x68
-//   print("Read: \(i2c.readWord(0x45, command: 0))")
-//   // Reading register 1 of the device with address 0x68
-//   // print("Register 1" + i2c.readByte(0x45, command: 1))
+        // sleep(1)
 
-// }
-// i2c_detect()
+        // let values: [UInt8] = [0xC3, 0xA3]
+        // let values: [UInt8] = [0xA3, 0xC3]
+        // let values: [UInt8] = [195, 163]
+        // print("195: ", 195.hex()) // c3
+        // print("163: ", 163.hex()) // a3
 
-// i2c()
+        // i2cset 1 0x48 0x01 0xc3a3 w
+        // i2cget 1 0x48 0x0 w // 0x3bf5
+        // i2cdump 1 0x48 b
+
+        // Write config data
+
+        // let values = [195, 163]
+        i2c.writeWord(0x48, command: 1, value: (195 << 8 | 163))
+        // i2c.writeData(0x48, command: 1, values: [195, 163])
+        // print("Write: \(i2c.writeData(0x48, command: 1, values:values))")
+        // print("Write: \(i2c.writeWord(0x48, command: 1, value: 0xc3a5))")
+
+        shortSleep()
+        let value = i2c.readWord(0x48, command: 0)
+        // let values = i2c.readData(0x48, command:0)
+        // let high = value & 0xFF
+        // let low = (value >> 8) & 0xFF
+
+        // let value = i2c.readData(0x48, command: 0)
+        // let high: UInt16 = UInt16(value[0]) << 8
+        // let low: UInt16 = UInt16(value[1])
+        // let calculated = Double(high | low) * 4096 / 32768.0
+        // print("Calculated: \(calculated)")
+
+        sleep(1)
+        // print("Read: \(i2c.readWord(0x48, command: 0).hex())")
+    }
+}
 
 func switch_toggle() {
-    let gpios = SwiftyGPIO.GPIOs(for:.RaspberryPi3)
-    let pin13 = gpios[.P27]!
-    let pin7 = gpios[.P4]!
-
-    pin13.direction = .OUT
-    pin7.direction = .OUT
-
+    let light = LightSwitch()
 
     for _ in 1...5 {
         print("On.")
-        pin13.value = 1
-        pin7.value = 1
+        light.on()
         sleep(1)
         print("Off.")
-        pin13.value = 0
-        pin7.value = 0
+        light.off()
         sleep(1)
     }
 }
 
-
-
 switch_toggle()
+// i2c()
 
 func main() -> Int {
-
-
     print("Hey yo. Hi.")
     return 0
 }

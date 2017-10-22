@@ -10,7 +10,7 @@ end
 desc 'Build the project'
 task :build do
   log 'Building project'
-  system_and_log 'time swift build'
+  system_and_log 'swift build'
 end
 
 desc 'Build and run the project using Swift PM'
