@@ -8,5 +8,5 @@ Sample Python configuration and bit shifting: https://github.com/switchdoclabs/S
 
 # Resources
  - Marius Rackwitz "Swift HomeKit Accessories" https://speakerdeck.com/marius/diy-smarthome-build-your-own-homekit-accessories
- 
+ - Nate Cook "Swift's Pointy Bits: Unsafe Swift and Pointer Types" https://academy.realm.io/posts/nate-cook-tryswift-tokyo-unsafe-swift-and-pointer-types/
  
