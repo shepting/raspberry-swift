@@ -1,15 +1,19 @@
 # raspberry-swift
 Swift 3.1 app on the Raspberry Pi 3
 
-To pull you must have Git LFS installed: `brew install git-lfs`. You can also download the archives directly from the Github web interface.
 
 # Installing Swift
-
 ```
+cd /
+wget https://github.com/shepting/raspberry-swift/blob/master/archives/swift-3.1.1-RPi23-1604.tgz
+sudo tar -xvzf swift-3.1.1-RPi23-1604.tgz
 sudo apt install clang
 sudo apt install libpython3.5-dev
 sudo apt install libcurl3
 ```
+
+# Bitwise Addressing
+"Unsafe Swift" https://www.raywenderlich.com/148569/unsafe-swift
 
 # Talking Over I2C
 Sample Python configuration and bit shifting: https://github.com/switchdoclabs/SDL_Pi_Grove4Ch16BitADC/blob/58e2a8e32b03d2c463bde59821d210b16a792ad1/Adafruit_ADS1x15/Adafruit_ADS1x15.py#L266-L268
