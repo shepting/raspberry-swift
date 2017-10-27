@@ -1,6 +1,7 @@
 # raspberry-swift
 Swift 3.1 app on the Raspberry Pi 3
 
+[![asciicast](https://asciinema.org/a/PXSoeFxyFvMVaBKC4M8BSSulF.png)](https://asciinema.org/a/PXSoeFxyFvMVaBKC4M8BSSulF)
 
 # Installing Swift
 ```
