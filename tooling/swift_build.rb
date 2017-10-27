@@ -22,6 +22,12 @@ def build_main
   sh "swiftc #{ARGS} -I build -L build -lHome source/main.swift -o build/main -v -Xlinker -v"
 end
 
+def build_individual
+  system_and_log 'swiftc -j4 \
+  source/SwiftyGPIO/Mailbox.swift source/SwiftyGPIO/SunXi.swift source/SwiftyGPIO/UART.swift source/SwiftyGPIO/I2C.swift  source/SwiftyGPIO/Presets.swift source/SwiftyGPIO/SwiftyGPIO.swift source/main.swift -o .build/main -v'
+  system_and_log './build/main'
+end
+
 def self.clean
     sh 'rm -rf build/*'
 end

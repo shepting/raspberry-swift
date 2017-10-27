@@ -1,6 +1,6 @@
 
-require_relative 'tooling/SwiftBuild.rb'
-require_relative 'tooling/common.rb'
+require_relative '../tooling/swift_build.rb'
+require_relative '../tooling/common.rb'
 
 
 task :default do
@@ -19,16 +19,10 @@ task run: :build do
   system_and_log '.build/debug/RaspberrySwift'
 end
 
-desc 'Clean the intermediate build files'
-task :clean do
-  SwiftBuild.clean
-end
-
 desc 'Build on Linux'
 task :linux do
-  system_and_log 'swiftc -j4 \
-  source/SwiftyGPIO/Mailbox.swift source/SwiftyGPIO/SunXi.swift source/SwiftyGPIO/UART.swift source/SwiftyGPIO/I2C.swift  source/SwiftyGPIO/Presets.swift source/SwiftyGPIO/SwiftyGPIO.swift source/main.swift -o .build/main -v'
-  system_and_log './build/main'
+  log 'Building individual'
+  build_individual
 end
 
 # Logging to Amazon Cloudwatch
