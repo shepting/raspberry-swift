@@ -7,7 +7,6 @@ func loopGPIO() {
     let file = open("/dev/mem", O_RDWR | O_SYNC);
     defer { close(file) }
 
-    
     // This is the base memory address for *all* peripherals of the
     // Rasbperry Pi (I2C, SPI, GPIO, UART, etc)
     let peripheralsBaseAddress = 0x3f000000 
@@ -22,6 +21,7 @@ func loopGPIO() {
     // Open the /dev/mem file (all memory) with read and write
     // privileges (we want to turn on output pins) at the proper
     // offset (we don't care about the rest of the addresses)
+    // 0x3f200000
     guard let rawPointer = mmap(nil, 1024 * 4, PROT_READ | PROT_WRITE, MAP_SHARED, file, gpioBaseAddress) else {
         perror("Cannot mmap bytes for path")
         return

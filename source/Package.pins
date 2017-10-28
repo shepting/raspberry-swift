@@ -1,7 +1,12 @@
 {
   "autoPin": true,
   "pins": [
-
+    {
+      "package": "SwiftyGPIO",
+      "reason": null,
+      "repositoryURL": "https://github.com/uraimo/SwiftyGPIO.git",
+      "version": "0.9.11"
+    }
   ],
   "version": 1
 }

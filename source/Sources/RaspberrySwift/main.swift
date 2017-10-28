@@ -1,32 +1,10 @@
+//
+// main.swift
+//
 
 import Foundation
 import SwiftyGPIO
 import Home
-
-extension UInt8 {
-    func hex() -> String {
-        return String(format: "%02x", self)
-    }
-}
-
-extension Int {
-    func hex() -> String {
-        return String(format: "%02x", self)
-    }
-}
-extension UInt16 {
-    func hex() -> String {
-        // 0x4e07
-        let low = self & 0xFF
-        let high = (self >> 8) & 0xFF
-        return "0x" + String(format: "%02x", high) + String(format: "%02x", low)
-        // return "0x" + String(high, radix: 16, uppercase: true) + String(low, radix: 16, uppercase: true)
-    }
-}
-
-func shortSleep() {
-    usleep(100000)
-}
 
 public func i2c() {
     let analogReader = AnalogReader()
@@ -38,7 +16,7 @@ public func i2c() {
 }
 
 func switch_toggle() {
-    let light = LightSwitch()
+    guard let light = LightSwitch() else { print("Failed to create switch"); return }
 
     for _ in 1...5 {
         print("On.")
@@ -50,10 +28,10 @@ func switch_toggle() {
     }
 }
 
-// switch_toggle()
-i2c()
+switch_toggle()
+//i2c()
 
 func main() -> Int {
-    print("Hey yo. Hi.")
+    print("Main")
     return 0
 }

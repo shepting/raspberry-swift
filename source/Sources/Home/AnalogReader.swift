@@ -38,6 +38,7 @@ public struct AnalogReader {
 
         shortSleep()
         let value = i2c.readWord(0x48, command: 0)
+        print("Value: \(value)")
         // let values = i2c.readData(0x48, command:0)
         // let high = value & 0xFF
         // let low = (value >> 8) & 0xFF
