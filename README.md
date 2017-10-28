@@ -13,6 +13,14 @@ sudo apt install libpython3.5-dev
 sudo apt install libcurl3
 ```
 
+# Hardware Used
+ - Rasberry PI 3 https://www.amazon.com/Raspberry-Model-1-2GHz-64-bit-quad-core/dp/B01CD5VC92
+ - 32GB Micro-SD Card https://www.amazon.com/SanDisk-microSDHC-Standard-Packaging-SDSQUNC-032G-GN6MA/dp/B010Q57T02
+ - Relay https://www.amazon.com/Tolako-Arduino-Indicator-Channel-Official/dp/B00VRUAHLE/
+ - 3.5" Monitor https://www.amazon.com/Raspberry-Display-kuman-480x320-Interface/dp/B01CNJVG8K
+ - Keyboard + Trackpad https://www.amazon.com/Rii-Stainless-Wireless-Rechargable-Raspberry/dp/B00ESUXXZM
+ - Raspberry Pi Breadboard & Mount https://www.amazon.com/Transparent-Experiment-Breadboard-Raspberry-Rapsbery/dp/B0155XBBFO
+
 # Talking Over I2C
 Sample Python configuration and bit shifting: https://github.com/switchdoclabs/SDL_Pi_Grove4Ch16BitADC/blob/58e2a8e32b03d2c463bde59821d210b16a792ad1/Adafruit_ADS1x15/Adafruit_ADS1x15.py#L266-L268
 
