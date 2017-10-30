@@ -1,27 +1,35 @@
 import SwiftyGPIO
 
 public struct LightSwitch {
-    let gpio4: GPIO // LED
-    let gpio6: GPIO // Relay
+    let ledPin: GPIO // LED
+    let relayPin: GPIO // Relay
 
     public init?() {
-        print("New light switch.")
+        // Create the pins
         let gpios = SwiftyGPIO.GPIOs(for:.RaspberryPi3)
-        guard let gpio4 = gpios[.P4] else { print("Invalid GPIO: .P4"); return nil }
-        self.gpio4 = gpio4
-        guard let gpio6 = gpios[.P6] else { print("Invalid GPIO: .P6"); return nil }
-        self.gpio6 = gpio6
-        gpio4.direction = .OUT
-        gpio6.direction = .OUT
+        guard let ledPin = gpios[.P5] else { print("Invalid GPIO: .P5"); return nil }
+        guard let relayPin = gpios[.P6] else { print("Invalid GPIO: .P6"); return nil }
+        self.ledPin = ledPin
+        self.relayPin = relayPin
+
+        // Set the pins to be outputs
+        ledPin.direction = .OUT
+        relayPin.direction = .OUT
     }
 
+    // Turn all of the pins on
     public func on() {
-        gpio4.value = 1
-        gpio6.value = 1
+        print("🌕 On")
+        ledPin.value = 1
+        relayPin.value = 1
     }
 
+    // Turn all of the pins off
     public func off() {
-        gpio4.value = 0
-        gpio6.value = 0
+        print("🌒 Off")
+        ledPin.value = 0
+        relayPin.value = 0
     }
 }
+
+

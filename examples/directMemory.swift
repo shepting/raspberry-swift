@@ -7,22 +7,11 @@ func loopGPIO() {
     let file = open("/dev/mem", O_RDWR | O_SYNC);
     defer { close(file) }
 
-    // This is the base memory address for *all* peripherals of the
-    // Rasbperry Pi (I2C, SPI, GPIO, UART, etc)
-    let peripheralsBaseAddress = 0x3f000000 
-
-    // This is the offset of just the GPIO configuration registers
-    // from the base peripheral address
-    let gpioBaseOffset = 0x200000
-
-    // We only really care about the memory from this point
-    let gpioBaseAddress = peripheralsBaseAddress + gpioBaseOffset
-
     // Open the /dev/mem file (all memory) with read and write
     // privileges (we want to turn on output pins) at the proper
     // offset (we don't care about the rest of the addresses)
     // 0x3f200000
-    guard let rawPointer = mmap(nil, 1024 * 4, PROT_READ | PROT_WRITE, MAP_SHARED, file, gpioBaseAddress) else {
+    guard let rawPointer = mmap(nil, 1024 * 4, PROT_READ | PROT_WRITE, MAP_SHARED, file, 0x3f200000) else {
         perror("Cannot mmap bytes for path")
         return
     }
@@ -32,7 +21,7 @@ func loopGPIO() {
 
     // Configure GPIO pin 4 & 6 as output (3 bits/pin) 
     // pin numbers:           6  5  4  3  2  1  0
-    basePointer.pointee = 0b001000001000000000000
+    basePointer.pointee = 0b001001000000000000000
 
     // Set up set/clear pointer objects
     // Offsets from docs were given in byte-size values
@@ -52,11 +41,11 @@ func loopGPIO() {
     // Loop through and show the LED turning on and off
     for i in 0...5 {
         print("High \(setPointer)")
-        setPointer.pointee = 0b1010000 // Pin 6 & 4
+        setPointer.pointee = 0b1100000 // Pin 6 & 4
         usleep(500000)
         print("Counter: \(i)")
         print("Low \(clearPointer)")
-        clearPointer.pointee = 0b1010000 // Pin 6 & 4
+        clearPointer.pointee = 0b1100000 // Pin 6 & 4
         usleep(500000)
     }
 }

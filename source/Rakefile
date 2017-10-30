@@ -33,6 +33,7 @@ namespace :log do
     system_and_log 'aws cloudwatch put-metric-data --metric-name ProcessorTemperatureCelcius --namespace RaspberrySwift --unit Count --value $(expr `cat /sys/class/thermal/thermal_zone0/temp` / 1000)'
   end
 
+  desc 'Log the GPU temperature to Cloudwatch'
   task :gpu_temp do
     require 'open3'
     temp_string, success = Open3.capture2e('/opt/vc/bin/vcgencmd', 'measure_temp')
@@ -41,6 +42,7 @@ namespace :log do
     system_and_log command
   end
 
+  desc 'Log boot event to Cloudwatch'
   task :boot do
     system_and_log 'aws cloudwatch put-metric-data --metric-name Boot --namespace RaspberrySwift --unit Count --value 1'
   end

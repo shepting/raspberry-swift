@@ -2,6 +2,12 @@
   "autoPin": true,
   "pins": [
     {
+      "package": "DS18B20",
+      "reason": null,
+      "repositoryURL": "https://github.com/uraimo/DS18B20.swift.git",
+      "version": "1.0.3"
+    },
+    {
       "package": "SwiftyGPIO",
       "reason": null,
       "repositoryURL": "https://github.com/uraimo/SwiftyGPIO.git",

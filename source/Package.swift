@@ -14,5 +14,6 @@ let package = Package(
     ],
     dependencies: [
         .Package(url: "https://github.com/uraimo/SwiftyGPIO.git", majorVersion: 0),
+        .Package(url: "https://github.com/uraimo/DS18B20.swift.git", majorVersion: 1),
     ]
 )
