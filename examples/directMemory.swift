@@ -20,8 +20,18 @@ func loopGPIO() {
     let basePointer: UnsafeMutablePointer<UInt32> = rawPointer.bindMemory(to: UInt32.self, capacity: 30)
 
     // Configure GPIO pin 4 & 6 as output (3 bits/pin) 
-    // pin numbers:           6  5  4  3  2  1  0
-    basePointer.pointee = 0b001001000000000000000
+    // pin numbers:        8  7  6  5  4  3  2  1  0
+    // basePointer.pointee = 0b000001001000000000000000
+
+
+    guard let rawPointer2 = mmap(nil, 1024 * 4, PROT_READ | PROT_WRITE, MAP_SHARED, file, 0x3f200000) else {
+        perror("Cannot mmap bytes for path")
+        return
+    }
+    // let basePointer2: UnsafeMutabl ePointer<UInt32> = rawPointer2.bindMemory(to: UInt32.self, capacity: 30)
+
+    // pin numbers:      22 21 20 19 18 17 16 15 14 13 12 11 // 10  9  8  7  6  5  4  3  2  1  0
+    // basePointer2.pointee = 0b00001000000000000000000000000000 //000000000000001001000000000000000
 
     // Set up set/clear pointer objects
     // Offsets from docs were given in byte-size values
@@ -41,11 +51,11 @@ func loopGPIO() {
     // Loop through and show the LED turning on and off
     for i in 0...5 {
         print("High \(setPointer)")
-        setPointer.pointee = 0b1100000 // Pin 6 & 4
+        setPointer.pointee = 0b100000100000000000001100000 // Pin 20, 6 & 5
         usleep(500000)
         print("Counter: \(i)")
         print("Low \(clearPointer)")
-        clearPointer.pointee = 0b1100000 // Pin 6 & 4
+        clearPointer.pointee = 0b100000100000000000001100000 // Pin 20, 6 & 5
         usleep(500000)
     }
 }
