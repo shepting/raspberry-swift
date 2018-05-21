@@ -1,0 +1,5 @@
+module BCM2835 [system] {
+    header "bcm2835.h"
+    link "bcm2835"
+    export *
+}
