@@ -1,6 +1,6 @@
 import XCTest
-@testable import sourceTests
+@testable import raspberryTankTests
 
 XCTMain([
-    testCase(sourceTests.allTests),
+    testCase(raspberryTankTests.allTests),
 ])

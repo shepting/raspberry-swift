@@ -31,19 +31,19 @@ public struct Motor {
     }
 
     public func backward() {
-        print(" \(name) ⇒ Backward")
+        // print(" \(name) ⇒ Backward")
         setPin(pin2, .LOW)
         setPin(pin1, .HIGH)
     }
 
     public func forward() {
-        print(" \(name) ⇒ Forward")
+        // print(" \(name) ⇒ Forward")
         setPin(pin1, .LOW)
         setPin(pin2, .HIGH)
     }
 
     public func stop() {
-        print(" \(name) ⇒ Stop")
+        // print(" \(name) ⇒ Stop")
         setPin(pin1, .LOW)
         setPin(pin2, .LOW)
     }

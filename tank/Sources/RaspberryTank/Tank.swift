@@ -11,7 +11,7 @@ public class Tank {
     }
 
     public func drive() {
-        print("Forward")
+        print("Forward ⇧ ⇧")
         left.forward()
         right.forward()
         sleep(1)
@@ -19,23 +19,23 @@ public class Tank {
     }
 
     public func turnLeft() {
-        print("Left")
+        print("Left ⇩ ⇧")
         left.backward()
         right.forward()
-        sleep(1)
+        sleep(2)
         stop()
     }
 
     public func turnRight() {
-        print("Right")
+        print("Right ⇧ ⇩")
         left.forward()
         right.backward()
-        sleep(1)
+        sleep(2)
         stop()
     }
 
     public func stop() {
-        print("Stop")
+        // print("Stop ⌧ ⇎")
         left.stop()
         right.stop()
     }
