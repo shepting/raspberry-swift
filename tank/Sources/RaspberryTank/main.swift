@@ -1,10 +1,10 @@
 import Foundation
 
-
-startPWM()
-
+// Create our own interface to the tank
 let tank = Tank()
-tank.drive()
 
-sleep(2)
+tank.drive()
+tank.turnLeft()
+tank.turnRight()
+tank.drive()
 tank.stop()
