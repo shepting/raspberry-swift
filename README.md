@@ -8,10 +8,16 @@ Swift 3.1 app on the Raspberry Pi 3
 
 # Logging In & Building
 This command will search the local network by MAC address and find ones that belong to Raspberry Pi devices.
-`sudo arp-scan --localnet --interface=en0 | grep b8:27:eb:`
+
+```
+sudo arp-scan --localnet --interface=en0 | grep b8:27:eb:
+```
 
 To log in, you will likely need to pass along the username, and (in my case) pass along the particular RSA key you have set up on the device.
-`ssh steven@172.20.10.6 -i ~/.ssh/raspberry_rsa`
+
+```
+ssh steven@172.20.10.6 -i ~/.ssh/raspberry_rsa
+```
 
 Then to build and run the app:
 ```
